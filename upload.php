@@ -7,56 +7,62 @@ function __autoload($class_name)
 }
 
 $domains = new Domains();
-//$devFile = '../../includes/vhosts.conf';
-
 $data = "";
 
 if (isset($_REQUEST['domain']))
 {
-    //$file = $devFile;
     $file = '/home/vetlogic/includes/vhosts.conf';
     $url = $_REQUEST['domain'];
-    if ($domains->isValidURL($url))
+    //$cameFrom = $_REQUEST['location'];
+    if ($domains->isBlank($url))
     {
-
-
-        if (!$domains->search($file, $url))
+        if ($domains->isValidURL($url))
         {
-            $text = "\n\n#" . strtoupper($url) . "\n" .
-                "<VirtualHost *:80>\n" .
-                "\tServerName www.beth2.petwise.me\n" .
-                "\tServerAlias " . $url . " *." . $url . "\n" .
-                "\tDocumentRoot /home/vetlogic/www/api/public\n" .
-                "\tServerAdmin webmaster@petwisewebsites.com\n\n" .
-                "\tSetEnv APPLICATION_ENV production\n" .
-                "\tSetEnv VETLOGIC_LIBRARY_PATH /home/vetlogic/lib/vetlogic\n\n" .
-                "\t<IfModule mod_suphp.c>\n" .
-                "\t\tsuPHP_UserGroup vetlogic vetlogic\n" .
-                "\t</IfModule>\n" .
-                "\t<IfModule !mod_disable_suexec.c>\n" .
-                "\t\tSuexecUserGroup vetlogic vetlogic\n" .
-                "\t</IfModule>\n" .
-                "</VirtualHost>";
 
-            $fh = fopen($file, 'a+') or die("Can't open file for writing.");
-            fwrite($fh, $text);
-            fclose($fh);
-            $data = "Content Saved";
+
+            if (!$domains->search($file, $url))
+            {
+                $text = "\n\n#" . strtoupper($url) . "\n" .
+                    "<VirtualHost *:80>\n" .
+                    "\tServerName www.beth2.petwise.me\n" .
+                    "\tServerAlias " . $url . " *." . $url . "\n" .
+                    "\tDocumentRoot /home/vetlogic/www/api/public\n" .
+                    "\tServerAdmin webmaster@petwisewebsites.com\n\n" .
+                    "\tSetEnv APPLICATION_ENV production\n" .
+                    "\tSetEnv VETLOGIC_LIBRARY_PATH /home/vetlogic/lib/vetlogic\n\n" .
+                    "\t<IfModule mod_suphp.c>\n" .
+                    "\t\tsuPHP_UserGroup vetlogic vetlogic\n" .
+                    "\t</IfModule>\n" .
+                    "\t<IfModule !mod_disable_suexec.c>\n" .
+                    "\t\tSuexecUserGroup vetlogic vetlogic\n" .
+                    "\t</IfModule>\n" .
+                    "</VirtualHost>";
+
+                $fh = fopen($file, 'a+') or die("Can't open file for writing.");
+                fwrite($fh, $text);
+                fclose($fh);
+                $data = "Content Saved";
+            }
+            else
+            {
+                $data = "domain already exists";
+
+            }
         }
         else
         {
-            $data = "domain already exists";
-
+            $data = "Invalid Url";
         }
     }
     else
     {
-        $data = "Invalid Url";
+        $data = "Url variable can not be blank - a valid URL must be entered";
     }
+
 }
 else
 {
-    $data = "Url variable can not be blank - valid URL must be entered";
+    $data = "Url variable can not be blank - a valid URL must be entered";
 }
 header('Content-Type: application/json');
 $message = array('message' => $data);

@@ -6,19 +6,8 @@
  * Time: 2:53 PM
  */
 
-include 'class.Database.inc';
-
 class Domains
 {
-
-    private $conn;
-
-    function __construct()
-    {
-        global $conn;
-        $this->conn = $conn;
-    }
-
     function search($file, $domain)
     {
         $lines = file($file, FILE_IGNORE_NEW_LINES);
@@ -44,10 +33,14 @@ class Domains
         }
     }
 
-    function isValidURL($domain)
+    function isBlank($domain)
     {
         if ($domain == NULL) return false;
+        else return true;
+    }
 
+    function isValidURL($domain)
+    {
         $allowed = '([a-z0-9]([-a-z0-9]*[a-z0-9]+)?)';
 
         $regex = '/^(' . $allowed . '{1,63}\.)+' . // 1 or several sub domains with a max of 63 chars

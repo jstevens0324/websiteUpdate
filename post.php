@@ -7,12 +7,10 @@ function __autoload($class_name)
 }
 
 $domains = new Domains();
-//$devFile = '../../includes/vhosts.conf';
 
 
 if (isset($_REQUEST['domain']))
 {
-    //$file = $devFile;
     $file = '/home/vetlogic/includes/vhosts.conf';
     $url = $_REQUEST['domain'];
     if ($domains->isValidURL($url))
