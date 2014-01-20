@@ -34,13 +34,25 @@ class Domains
             }
         }
 
-        if($found)
+        if ($found)
         {
             return true;
         }
         else
         {
             return false;
+        }
+    }
+
+    function validateFormat($domain)
+    {
+        if (filter_var($domain, FILTER_VALIDATE_URL) === FALSE)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
         }
     }
 }
