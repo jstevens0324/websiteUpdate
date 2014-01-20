@@ -9,6 +9,7 @@ function __autoload($class_name)
 $domains = new Domains();
 //$devFile = '../../includes/vhosts.conf';
 
+$data = "";
 
 if (isset($_REQUEST['domain']))
 {
@@ -40,18 +41,18 @@ if (isset($_REQUEST['domain']))
             $fh = fopen($file, 'a+') or die("Can't open file for writing.");
             fwrite($fh, $text);
             fclose($fh);
-            echo "<h2>Content Saved</h2>";
+            $data = "Content Saved";
         }
         else
         {
-            echo "<h2>This domain already exists</h2>";
+            $data = "domain already exists";
 
         }
     }
     else
     {
-        echo "<h2>Not a valid Url</h2>";
+        $data = "Invalid Url";
     }
-    ?>
-    <meta http-equiv="refresh" content="2; url=index"><?
+    header('Content-Type: application/json');
+    echo json_encode($data);
 }

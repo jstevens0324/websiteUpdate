@@ -44,15 +44,15 @@ class Domains
         }
     }
 
-    function validateFormat($domain)
+    function isValidURL($domain)
     {
-        if (filter_var($domain, FILTER_VALIDATE_URL) === FALSE)
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
+        if ($domain == NULL) return false;
+
+        $allowed = '([a-z0-9]([-a-z0-9]*[a-z0-9]+)?)';
+
+        $regex = '/^(' . $allowed . '{1,63}\.)+' . // 1 or several sub domains with a max of 63 chars
+            '[a-z]' . '{2,6}/'; // followed by a TLD
+        if (preg_match($regex, $domain) == true) return true;
+        else return false;
     }
 }
