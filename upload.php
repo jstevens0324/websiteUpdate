@@ -53,6 +53,10 @@ if (isset($_REQUEST['domain']))
     {
         $data = "Invalid Url";
     }
-    header('Content-Type: application/json');
-    echo json_encode($data);
 }
+else
+{
+    $data = "Url variable can not be blank - valid URL must be entered";
+}
+header('Content-Type: application/json');
+echo json_encode($data);
