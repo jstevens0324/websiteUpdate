@@ -17,7 +17,7 @@ $password = "mumbojumbo10";
 
 try
 {
-    $conn = new PDO('mysql:host=172.20.6.125;dbname=vetlogic_live', $username, $password);
+    $conn = new PDO('mysql:host=97.65.86.97;dbname=vetlogic_live', $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 }
 catch (PDOException $e)
