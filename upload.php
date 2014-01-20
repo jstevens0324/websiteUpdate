@@ -59,4 +59,5 @@ else
     $data = "Url variable can not be blank - valid URL must be entered";
 }
 header('Content-Type: application/json');
-echo json_encode($data);
+$message = array('message' => $data);
+echo json_encode($message);
