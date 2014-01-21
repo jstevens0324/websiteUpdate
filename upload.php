@@ -6,7 +6,7 @@ function __autoload($class_name)
     include './include/class.' . $class_name . '.inc';
 }
 
-$r = $this->_request->r;
+$r = $_REQUEST['r'];
 $params = urldecode(base64_decode($r));
 parse_str($params, $params);
 
