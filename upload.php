@@ -6,6 +6,12 @@ function __autoload($class_name)
     include './include/class.' . $class_name . '.inc';
 }
 
+$r = $this->_request->r;
+$params = urldecode(base64_decode($r));
+parse_str($params, $params);
+
+$avimark = (isset($params['origin']) && $params['origin'] == 'avimark');
+
 $domains = new Domains();
 $data = "";
 
@@ -18,8 +24,6 @@ if (isset($_REQUEST['domain']))
     {
         if ($domains->isValidURL($url))
         {
-
-
             if (!$domains->search($file, $url))
             {
                 $text = "\n\n#" . strtoupper($url) . "\n" .
@@ -43,27 +47,18 @@ if (isset($_REQUEST['domain']))
                 fclose($fh);
                 $data = "Content Saved";
             }
-            else
-            {
-                $data = "domain already exists";
-
-            }
+            else $data = "domain already exists";
         }
-        else
-        {
-            $data = "Invalid Url";
-        }
+        else $data = "Invalid Url";
     }
-    else
-    {
-        $data = "Url variable can not be blank - a valid URL must be entered";
-    }
+    else $data = "Url variable can not be blank - a valid URL must be entered";
+}
+else $data = "Url variable can not be blank - a valid URL must be entered";
 
-}
-else
-{
-    $data = "Url variable can not be blank - a valid URL must be entered";
-}
 header('Content-Type: application/json');
 //$message = array('message' => $data);
 echo json_encode($data);
+
+//$baseLink = 'http://vetconnect.me/upload';
+//$params = sprintf('domain=%s&origin=%s&securityKey=%s', $domain, 'avimark', "KlockWork");
+//$output = sprintf('%s?r=%s', $baseLink, base64_encode(urlencode($params)));
