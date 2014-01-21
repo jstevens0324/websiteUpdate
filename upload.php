@@ -15,10 +15,10 @@ $avimark = (isset($params['origin']) && $params['origin'] == 'avimark');
 $domains = new Domains();
 $data = "";
 
-if (isset($_REQUEST['domain']))
+if (isset($params['domain']))
 {
     $file = '/home/vetlogic/includes/vhosts.conf';
-    $url = $_REQUEST['domain'];
+    $url = $params['domain'];
     //$cameFrom = $_REQUEST['location'];
     if ($domains->isBlank($url))
     {
