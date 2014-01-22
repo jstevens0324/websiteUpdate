@@ -1,11 +1,11 @@
 <?php
+
 /**
  * McAllister Software Systems
  * User: jstevens
  * Date: 1/20/14
  * Time: 2:53 PM
  */
-
 class Domains
 {
     function search($file, $domain)

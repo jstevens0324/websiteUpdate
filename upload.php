@@ -6,20 +6,13 @@ function __autoload($class_name)
     include './include/class.' . $class_name . '.inc';
 }
 
-$r = $_REQUEST['r'];
-$params = urldecode(base64_decode($r));
-parse_str($params, $params);
-
-$avimark = (isset($params['origin']) && $params['origin'] == 'avimark');
-
 $domains = new Domains();
 $data = "";
 
-if (isset($params['domain']))
+if (isset($_REQUEST['domain']))
 {
     $file = '/home/vetlogic/includes/vhosts.conf';
-    $url = $params['domain'];
-    //$cameFrom = $_REQUEST['location'];
+    $url = $_REQUEST['domain'];
     if ($domains->isBlank($url))
     {
         if ($domains->isValidURL($url))

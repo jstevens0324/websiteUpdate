@@ -8,14 +8,12 @@ function __autoload($class_name)
 
 $domains = new Domains();
 
-
 if (isset($_REQUEST['domain']))
 {
     $file = '/home/vetlogic/includes/vhosts.conf';
     $url = $_REQUEST['domain'];
     if ($domains->isValidURL($url))
     {
-
 
         if (!$domains->search($file, $url))
         {

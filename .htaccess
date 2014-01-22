@@ -1,3 +1,13 @@
+Order Deny,Allow
+Deny from all
+Allow from 127.0.0.1
+Allow from 97.65.86.0/24
+
+ErrorDocument 403 /error/error403.html
+ErrorDocument 404 /error/error404.html
+ErrorDocument 500 /error/error500.html
+
+
 RewriteEngine on
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME}\.php -f
