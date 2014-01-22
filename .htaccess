@@ -3,8 +3,8 @@ Deny from all
 Allow from 127.0.0.1
 Allow from 97.65.86.0/24
 
-ErrorDocument 403 http://vetconnect.me/error/error403.html
-ErrorDocument 404 http://vetconnect.me/error/error404.html
+ErrorDocument 403 "YOU ARE FORBIDDEN"
+ErrorDocument 404 "NOT FOUND ---- NOW LEAVE"
 ErrorDocument 500 http://vetconnect.me/error/error500.html
 
 
