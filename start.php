@@ -26,9 +26,9 @@ include './include/header.inc';
                     <div class="form-group">
                         <label>Feature: </label>
                         <select class="form-control" name="feature">
-                            <option value="search">Search</option>
-                            <option value="update">Update</option>
-                            <option value="delete">Delete</option>
+                            <option value="1">Search</option>
+                            <option value="2">Update</option>
+                            <option value="3">Delete</option>
                         </select>
                     </div>
 

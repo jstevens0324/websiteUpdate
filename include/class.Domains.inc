@@ -8,10 +8,22 @@
  */
 class Domains
 {
-    function search($file, $domain)
+
+    /**
+     * @var
+     */
+    protected $_domain;
+
+    function __construct($domain)
+    {
+        $this->_domain = $domain;
+    }
+
+
+    function search($file)
     {
         $lines = file($file, FILE_IGNORE_NEW_LINES);
-        $uid = "#" . strtoupper($domain);
+        $uid = "#" . strtoupper($this->_domain);
         $found = false;
 
 
@@ -27,25 +39,22 @@ class Domains
         {
             return true;
         }
-        else
-        {
-            return false;
-        }
+        else return false;
     }
 
-    function isBlank($domain)
+    function isBlank()
     {
-        if ($domain == NULL) return false;
+        if ($this->_domain == NULL) return false;
         else return true;
     }
 
-    function isValidURL($domain)
+    function isValidURL()
     {
         $allowed = '([a-z0-9]([-a-z0-9]*[a-z0-9]+)?)';
 
         $regex = '/^(' . $allowed . '{1,63}\.)+' . // 1 or several sub domains with a max of 63 chars
             '[a-z]' . '{2,6}/'; // followed by a TLD
-        if (preg_match($regex, $domain) == true) return true;
+        if (preg_match($regex, $this->_domain) == true) return true;
         else return false;
     }
 }
