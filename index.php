@@ -7,25 +7,17 @@ function __autoload($class_name)
     include './include/class.' . $class_name . '.inc';
 }
 
-
-
-if (isset($_POST['login']))
-{
-    $authService = new Auth();
-    if ($authService->validateLogin($_POST['username'], $_POST['password']))
-    {
+if (isset($_POST['login'])) {
+    $authService = new Auth(new Db());
+    if ($authService->validateLogin($_POST['username'], $_POST['password'])) {
 
         header("Location: http://" . $_SERVER['HTTP_HOST'] . "/start");
         ob_end_flush();
-    }
-    else
-    {
+    } else {
         echo 'Email or Password is Incorrect!';
         echo "<meta http-equiv=\"refresh\" content=\"2;url=index\">";
     }
-}
-else
-{
+} else {
 
     ?>
 

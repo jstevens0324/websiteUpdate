@@ -9,14 +9,22 @@
 class Domains
 {
 
+
+    /**
+     * @var PDO
+     */
+    private $conn;
+
+
     /**
      * @var
      */
     protected $_domain;
 
-    function __construct($domain)
+    function __construct($domain, PDO $conn)
     {
         $this->_domain = $domain;
+        $this->conn = $conn;
     }
 
 
@@ -27,19 +35,15 @@ class Domains
         $found = false;
 
 
-        foreach ($lines as $line)
-        {
-            if (trim($line) == $uid)
-            {
+        foreach ($lines as $line) {
+            if (trim($line) == $uid) {
                 $found = true;
             }
         }
 
-        if ($found)
-        {
+        if ($found) {
             return true;
-        }
-        else return false;
+        } else return false;
     }
 
     function isBlank()
@@ -56,5 +60,100 @@ class Domains
             '[a-z]' . '{2,6}/'; // followed by a TLD
         if (preg_match($regex, $this->_domain) == true) return true;
         else return false;
+    }
+
+
+    function find($file, $domain)
+    {
+        $lines = file($file, FILE_IGNORE_NEW_LINES);
+        $uid = "#" . strtoupper($domain);
+        $found = false;
+
+        foreach ($lines as $line) {
+            if (trim($line) == $uid) {
+                $found = true;
+            }
+        }
+
+        if ($found) {
+            return "<h2>" . $domain . " is in use.</h2>";
+        } else return "<h2>" . $domain . " is NOT in use</h2>";
+    }
+
+
+    function update($url, $file)
+    {
+        if ($this->isValidURL($url)) {
+            if (!$this->search($file, $url)) {
+                $text = "\n\n#" . strtoupper($url) . "\n" .
+                    "<VirtualHost *:80>\n" .
+                    "\tServerName www.beth2.petwise.me\n" .
+                    "\tServerAlias " . $url . " *." . $url . "\n" .
+                    "\tDocumentRoot /home/vetlogic/www/api/public\n" .
+                    "\tServerAdmin webmaster@petwisewebsites.com\n\n" .
+                    "\tSetEnv APPLICATION_ENV production\n" .
+                    "\tSetEnv VETLOGIC_LIBRARY_PATH /home/vetlogic/lib/vetlogic\n\n" .
+                    "\t<IfModule mod_suphp.c>\n" .
+                    "\t\tsuPHP_UserGroup vetlogic vetlogic\n" .
+                    "\t</IfModule>\n" .
+                    "\t<IfModule !mod_disable_suexec.c>\n" .
+                    "\t\tSuexecUserGroup vetlogic vetlogic\n" .
+                    "\t</IfModule>\n" .
+                    "</VirtualHost>";
+
+                $fh = fopen($file, 'a+') or die("Can't open file for writing.");
+                fwrite($fh, $text);
+                fclose($fh);
+                return "<h2>Content Saved</h2>";
+            } else return "<h2>This domain already exists</h2>";
+
+        } else return "<h2>Not a valid Url</h2>";
+    }
+
+
+    function delete($url, $file)
+    {
+        if ($this->isValidURL($url)) {
+            $file2 = 'e://wamp/includes/vhosts2.conf';
+            $uid = strtoupper($url);
+            //$lines = file($file, FILE_IGNORE_NEW_LINES);
+            $contents = file_get_contents($file);
+            $about = explode('#', $contents);
+            if (in_array($uid, $about)) {
+                echo 'this may have worked';
+            }
+
+            $strings = array('Apple', 'Banana', 'Orange');
+            $substrings = array($uid);
+
+            $results = array_filter($about, function ($item) use ($substrings) {
+                foreach ($substrings as $substring)
+                    if (strpos($item, $substring) !== FALSE) return TRUE;
+                return FALSE;
+            });
+            foreach ($results as $key => $values) {
+                array_splice($about, $key, 1);
+            }
+            //print_r($results);
+
+            /*print_r(array_splice($about,2,1));
+            echo "<br><br><br><br>";*/
+            $again = implode('#', $about);
+            //print_r($again);
+            $handle = fopen($file, "w+") or die("Can't open file for writing.");
+            fwrite($handle, $again);
+            fclose($handle);
+            /*fopen($file, 'w+') or die("Can't open file for writing.");
+
+            foreach ($lines as $line)
+            {
+                if (!trim($line) == $uid)
+                {
+                    fwrite($line, htmlspecialchars($line));
+                }
+            }
+
+            fclose($file);*/
+        }
     }
 }

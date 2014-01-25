@@ -13,7 +13,7 @@ function __autoload($class_name)
 session_start();
 session_regenerate_id();
 
-$authService = new Auth();
+$authService = new Auth(new Db());
 $authService->authInfo($_SESSION['user']);
 $user = $authService->getUser();
 $name = $user['name'];

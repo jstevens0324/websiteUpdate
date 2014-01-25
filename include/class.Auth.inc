@@ -39,19 +39,9 @@ class Auth
     /**
      *
      */
-    function __construct()
+    function __construct(PDO $conn)
     {
-        try
-        {
-            $conn = new PDO('mysql:host=172.20.6.125;dbname=vetlogic_live', "warren", "mumbojumbo10");
-            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        }
-        catch (PDOException $e)
-        {
-            echo 'ERROR: ' . $e->getMessage();
-        }
         $this->conn = $conn;
-
     }
 
 

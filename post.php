@@ -6,24 +6,19 @@ include './include/header.inc';?>
 
     <div class="page-header"><?
 
-$database = new Db();
-$pdo = $database->connect();
-$update = new Update($pdo);
-$search = new Search();
-$delete = new Delete($pdo);
+
 $feature = $_REQUEST['feature'];
-if (isset($_REQUEST['domain']))
-{
-    $domains = new Domains($_REQUEST['domain']);
+if (isset($_REQUEST['domain'])) {
+    $domains = new Domains($_REQUEST['domain'], new Db());
     //$file = '/home/vetlogic/includes/vhosts.conf';
-    $file = 'e://wamp/includes/vhosts.conf';
+    $file = '/Applications/conf/vhosts.conf';
     $url = $_REQUEST['domain'];
 
-    if ($feature == 1) echo $search->search($file, $url);
-    if ($feature == 2) echo $update->update($url, $file);
-    if ($feature == 3) $delete->update($url, $file);
+    if ($feature == 1) echo $domains->find($file, $url);
+    if ($feature == 2) echo $domains->update($url, $file);
+    if ($feature == 3) $domains->delete($url, $file);
     ?>
-    <!--meta http-equiv="refresh" content="4; url=start"-->
+    <meta http-equiv="refresh" content="4; url=start">
 
     </div>
     </div>
