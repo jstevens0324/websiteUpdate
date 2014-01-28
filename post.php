@@ -6,8 +6,6 @@ include './include/header.inc';?>
 
     <div class="page-header"><?
 
-
-
 if (isset($_REQUEST['domain']))
 {
     $domains = new Domains($_REQUEST['domain'], new Db());
@@ -18,11 +16,10 @@ if (isset($_REQUEST['domain']))
 
     if (isset($_REQUEST['feature']))
     {
+        $feature = $_REQUEST['feature'];
         if ($feature == 1) echo $domains->find($file, $url);
         if ($feature == 2) echo $domains->update($url, $file);
         if ($feature == 3) $domains->delete($url, $file);
-        $feature = $_REQUEST['feature'];
-
     }
     else
     {
