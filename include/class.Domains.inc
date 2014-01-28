@@ -100,9 +100,9 @@ class Domains
 
         if ($found)
         {
-            return "<h2>" . $domain . " is in use.</h2>";
+            return $domain . " is in use";
         }
-        else return "<h2>" . $domain . " is NOT in use</h2>";
+        else return $domain . " is NOT in use";
     }
 
 
@@ -130,12 +130,12 @@ class Domains
                 $fh = fopen($file, 'a+') or die("Can't open file for writing.");
                 fwrite($fh, $text);
                 fclose($fh);
-                return "<h2>Content Saved</h2>";
+                return "Content Saved";
             }
-            else return "<h2>This domain already exists</h2>";
+            else return "This domain already exists";
 
         }
-        else return "<h2>Not a valid Url</h2>";
+        else return "Not a valid Url";
     }
 
 
