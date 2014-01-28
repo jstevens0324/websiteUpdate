@@ -8,10 +8,12 @@ include './include/header.inc';?>
 
 
 $feature = $_REQUEST['feature'];
-if (isset($_REQUEST['domain'])) {
+if (isset($_REQUEST['domain']))
+{
     $domains = new Domains($_REQUEST['domain'], new Db());
-    //$file = '/home/vetlogic/includes/vhosts.conf';
-    $file = '/Applications/conf/vhosts.conf';
+    //$file = './../includes/vhosts.conf';  //Use this if running locally
+    $file = '/home/vetlogic/includes/vhosts.conf'; // Use this if running on live server
+    //$file = '/Applications/conf/vhosts.conf'; // Use this if running on Mac
     $url = $_REQUEST['domain'];
 
     if ($feature == 1) echo $domains->find($file, $url);

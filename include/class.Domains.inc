@@ -8,8 +8,6 @@
  */
 class Domains
 {
-
-
     /**
      * @var PDO
      */
@@ -21,6 +19,10 @@ class Domains
      */
     protected $_domain;
 
+    /**
+     * @param $domain
+     * @param PDO $conn
+     */
     function __construct($domain, PDO $conn)
     {
         $this->_domain = $domain;
@@ -28,6 +30,10 @@ class Domains
     }
 
 
+    /**
+     * @param $file
+     * @return bool
+     */
     function search($file)
     {
         $lines = file($file, FILE_IGNORE_NEW_LINES);
@@ -35,23 +41,33 @@ class Domains
         $found = false;
 
 
-        foreach ($lines as $line) {
-            if (trim($line) == $uid) {
+        foreach ($lines as $line)
+        {
+            if (trim($line) == $uid)
+            {
                 $found = true;
             }
         }
 
-        if ($found) {
+        if ($found)
+        {
             return true;
-        } else return false;
+        }
+        else return false;
     }
 
+    /**
+     * @return bool
+     */
     function isBlank()
     {
         if ($this->_domain == NULL) return false;
         else return true;
     }
 
+    /**
+     * @return bool
+     */
     function isValidURL()
     {
         $allowed = '([a-z0-9]([-a-z0-9]*[a-z0-9]+)?)';
@@ -63,75 +79,95 @@ class Domains
     }
 
 
+    /**
+     * @param $file
+     * @param $domain
+     * @return string
+     */
     function find($file, $domain)
     {
         $lines = file($file, FILE_IGNORE_NEW_LINES);
         $uid = "#" . strtoupper($domain);
         $found = false;
 
-        foreach ($lines as $line) {
-            if (trim($line) == $uid) {
+        foreach ($lines as $line)
+        {
+            if (trim($line) == $uid)
+            {
                 $found = true;
             }
         }
 
-        if ($found) {
+        if ($found)
+        {
             return "<h2>" . $domain . " is in use.</h2>";
-        } else return "<h2>" . $domain . " is NOT in use</h2>";
+        }
+        else return "<h2>" . $domain . " is NOT in use</h2>";
     }
 
 
+    /**
+     * @param $url
+     * @param $file
+     * @return string
+     */
     function update($url, $file)
     {
-        if ($this->isValidURL($url)) {
-            if (!$this->search($file, $url)) {
+        if ($this->isValidURL($url))
+        {
+            if (!$this->search($file, $url))
+            {
                 $text = "\n\n#" . strtoupper($url) . "\n" .
                     "<VirtualHost *:80>\n" .
                     "\tServerName www.beth2.petwise.me\n" .
                     "\tServerAlias " . $url . " *." . $url . "\n" .
-                    "\tDocumentRoot /home/vetlogic/www/api/public\n" .
+                    "\tDocumentRoot /home/vetlogic/www/petwise/public\n" .
                     "\tServerAdmin webmaster@petwisewebsites.com\n\n" .
                     "\tSetEnv APPLICATION_ENV production\n" .
-                    "\tSetEnv VETLOGIC_LIBRARY_PATH /home/vetlogic/lib/vetlogic\n\n" .
-                    "\t<IfModule mod_suphp.c>\n" .
-                    "\t\tsuPHP_UserGroup vetlogic vetlogic\n" .
-                    "\t</IfModule>\n" .
-                    "\t<IfModule !mod_disable_suexec.c>\n" .
-                    "\t\tSuexecUserGroup vetlogic vetlogic\n" .
-                    "\t</IfModule>\n" .
+                    "\tSetEnv VETLOGIC_LIBRARY_PATH /home/vetlogic/lib/vetlogic\n" .
                     "</VirtualHost>";
 
                 $fh = fopen($file, 'a+') or die("Can't open file for writing.");
                 fwrite($fh, $text);
                 fclose($fh);
                 return "<h2>Content Saved</h2>";
-            } else return "<h2>This domain already exists</h2>";
+            }
+            else return "<h2>This domain already exists</h2>";
 
-        } else return "<h2>Not a valid Url</h2>";
+        }
+        else return "<h2>Not a valid Url</h2>";
     }
 
 
+    /**
+     * @param $url
+     * @param $file
+     */
     function delete($url, $file)
     {
-        if ($this->isValidURL($url)) {
-            $file2 = 'e://wamp/includes/vhosts2.conf';
+        if ($this->isValidURL($url))
+        {
+            //$file2 = 'e://wamp/includes/vhosts2.conf';
             $uid = strtoupper($url);
             //$lines = file($file, FILE_IGNORE_NEW_LINES);
             $contents = file_get_contents($file);
             $about = explode('#', $contents);
-            if (in_array($uid, $about)) {
+            if (in_array($uid, $about))
+            {
                 echo 'this may have worked';
             }
 
             $strings = array('Apple', 'Banana', 'Orange');
             $substrings = array($uid);
 
-            $results = array_filter($about, function ($item) use ($substrings) {
+            $results = array_filter($about, function ($item) use ($substrings)
+            {
                 foreach ($substrings as $substring)
                     if (strpos($item, $substring) !== FALSE) return TRUE;
                 return FALSE;
             });
-            foreach ($results as $key => $values) {
+            foreach ($results as $key => $values)
+            {
                 array_splice($about, $key, 1);
             }
             //print_r($results);
