@@ -11,6 +11,7 @@ include './include/header.inc';?>
 if (isset($_REQUEST['domain']))
 {
     if ($_REQUEST['feature']) $feature = $_REQUEST['feature'];
+    if (!$_REQUEST['feature']) echo '<h1>You need to define a feature</h1>';
     $domains = new Domains($_REQUEST['domain'], new Db());
     //$file = './../includes/vhosts.conf';  //Use this if running locally
     $file = '/home/vetlogic/includes/vhosts.conf'; // Use this if running on live server
