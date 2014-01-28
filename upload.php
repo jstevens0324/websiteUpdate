@@ -17,8 +17,8 @@ if (isset($_REQUEST['domain']))
     if (isset($_REQUEST['feature']))
     {
         $feature = $_REQUEST['feature'];
-        if ($feature == 1) echo $domains->find($file, $url);
-        if ($feature == 2) echo $domains->update($url, $file);
+        if ($feature == 1) $data = $domains->find($file, $url);
+        if ($feature == 2) $data = $domains->update($url, $file);
         if ($feature == 3) $domains->delete($url, $file);
     }
     else
