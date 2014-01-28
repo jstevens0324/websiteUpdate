@@ -16,16 +16,16 @@ if (isset($_REQUEST['domain']))
     //$file = '/Applications/conf/vhosts.conf'; // Use this if running on Mac
     $url = $_REQUEST['domain'];
 
-    if ($_REQUEST['feature'])
+    if (!$_REQUEST['feature'])
+    {
+        echo '<h1>You need to define a feature</h1>';
+    }
+    else
     {
         if ($feature == 1) echo $domains->find($file, $url);
         if ($feature == 2) echo $domains->update($url, $file);
         if ($feature == 3) $domains->delete($url, $file);
         $feature = $_REQUEST['feature'];
-    }
-    else
-    {
-        echo '<h1>You need to define a feature</h1>';
     }
     ?>
     <meta http-equiv="refresh" content="4; url=start">
