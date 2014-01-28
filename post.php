@@ -7,9 +7,10 @@ include './include/header.inc';?>
     <div class="page-header"><?
 
 
-$feature = $_REQUEST['feature'];
+
 if (isset($_REQUEST['domain']))
 {
+    $feature = $_REQUEST['feature'];
     $domains = new Domains($_REQUEST['domain'], new Db());
     //$file = './../includes/vhosts.conf';  //Use this if running locally
     $file = '/home/vetlogic/includes/vhosts.conf'; // Use this if running on live server

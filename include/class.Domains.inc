@@ -119,7 +119,7 @@ class Domains
             {
                 $text = "\n\n#" . strtoupper($url) . "\n" .
                     "<VirtualHost *:80>\n" .
-                    "\tServerName www.beth2.petwise.me\n" .
+                    "\tServerName www.joshstevens.petconnect.me\n" .
                     "\tServerAlias " . $url . " *." . $url . "\n" .
                     "\tDocumentRoot /home/vetlogic/www/petwise/public\n" .
                     "\tServerAdmin webmaster@petwisewebsites.com\n\n" .
