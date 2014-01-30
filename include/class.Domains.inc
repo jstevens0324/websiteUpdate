@@ -128,6 +128,9 @@ class Domains
                     "\t<IfModule mod_suphp.c>\n" .
                     "\t\tsuPHP_UserGroup vetlogic vetlogic\n" .
                     "\t</IfModule>\n\n" .
+                    "\t<IfModule !mod_disable_suexec.c>\n" .
+                    "\t\tSuexecUserGroup vetlogic vetlogic\n" .
+                    "\t</IfModule>\n\n" .
                     "\t<Directory \"/home/vetlogic/www/petwise/public\">\n" .
                     "\t\tOptions FollowSymLinks\n" .
                     "\t\tAllowOverride All\n" .
