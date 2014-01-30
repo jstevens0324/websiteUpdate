@@ -124,7 +124,16 @@ class Domains
                     "\tDocumentRoot /home/vetlogic/www/petwise/public\n" .
                     "\tServerAdmin webmaster@petwisewebsites.com\n\n" .
                     "\tSetEnv APPLICATION_ENV production\n" .
-                    "\tSetEnv VETLOGIC_LIBRARY_PATH /home/vetlogic/lib/vetlogic\n" .
+                    "\tSetEnv VETLOGIC_LIBRARY_PATH /home/vetlogic/lib/vetlogic\n\n" .
+                    "\t<IfModule mod_suphp.c>\n" .
+                    "\t\tsuPHP_UserGroup vetlogic vetlogic\n" .
+                    "\t</IfModule>\n\n" .
+                    "\t<Directory \"/home/vetlogic/www/petwise/public\">\n" .
+                    "\t\tOptions FollowSymLinks\n" .
+                    "\t\tAllowOverride All\n" .
+                    "\t\tOrder allow,deny\n" .
+                    "\t\tAllow from all\n" .
+                    "\t</Directory>\n" .
                     "</VirtualHost>";
 
                 $fh = fopen($file, 'a+') or die("Can't open file for writing.");
