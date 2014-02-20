@@ -1,6 +1,7 @@
 Order Deny,Allow
 Deny from all
 Allow from 127.0.0.1
+Allow from localhost
 Allow from 97.65.86.0/24
 
 ErrorDocument 403 /error/error403.html

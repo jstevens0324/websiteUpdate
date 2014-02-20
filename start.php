@@ -12,7 +12,6 @@ include './include/header.inc';
 
     <div class="container">
         <br><br>
-
         <div class="page-header">
             <h1>Enter Domain Details</h1>
         </div>
@@ -20,18 +19,16 @@ include './include/header.inc';
             <div class="col-md-6">
                 <form role="form" action="post" method="post">
                     <div class="form-group">
-                        <label>Domain:</label>
-                        <input type="text" class="form-control" id="domain" name="domain">
+                        <label>Domain:</label><p>Enter only one domain per line</p>
+                        <textarea type="text" class="form-control" id="domain" name="domain"></textarea>
                     </div>
                     <div class="form-group">
                         <label>Feature: </label>
                         <select class="form-control" name="feature">
-                            <option value="1">Search</option>
+                            <!--option value="1">Search</option-->
                             <option value="2">Update</option>
-                            <option value="3">Delete</option>
                         </select>
                     </div>
-
                     <button type="submit" class="btn btn-default" name="submit" value="Submit">Submit</button>
                 </form>
             </div>

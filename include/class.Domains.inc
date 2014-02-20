@@ -13,7 +13,6 @@ class Domains
      */
     private $conn;
 
-
     /**
      * @var
      */
@@ -29,9 +28,9 @@ class Domains
         $this->conn = $conn;
     }
 
-
     /**
      * @param $file
+     *
      * @return bool
      */
     function search($file)
@@ -39,7 +38,6 @@ class Domains
         $lines = file($file, FILE_IGNORE_NEW_LINES);
         $uid = "#" . strtoupper($this->_domain);
         $found = false;
-
 
         foreach ($lines as $line)
         {
@@ -78,10 +76,10 @@ class Domains
         else return false;
     }
 
-
     /**
      * @param $file
      * @param $domain
+     *
      * @return string
      */
     function find($file, $domain)
@@ -105,10 +103,10 @@ class Domains
         else return $domain . " is NOT in use";
     }
 
-
     /**
      * @param $url
      * @param $file
+     *
      * @return string
      */
     function update($url, $file)
@@ -142,14 +140,13 @@ class Domains
                 $fh = fopen($file, 'a+') or die("Can't open file for writing.");
                 fwrite($fh, $text);
                 fclose($fh);
-                return "Content Saved";
+                return "Content Saved<br>";
             }
             else return "This domain already exists";
 
         }
         else return "Not a valid Url";
     }
-
 
     /**
      * @param $url

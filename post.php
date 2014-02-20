@@ -8,22 +8,26 @@ include './include/header.inc';?>
 
 if (isset($_REQUEST['domain']))
 {
-    $domains = new Domains($_REQUEST['domain'], new Db());
-    //$file = './../includes/vhosts.conf';  //Use this if running locally
-    $file = '/home/vetlogic/includes/vhosts.conf'; // Use this if running on live server
-    //$file = '/Applications/conf/vhosts.conf'; // Use this if running on Mac
-    $url = $_REQUEST['domain'];
+    $domains = explode(PHP_EOL, $_REQUEST['domain']);
+    foreach ($domains as $domain)
+    {
+        $dom = new Domains($domain, new Db());
+        //$file = './../includes/vhosts.conf';  //Use this if running locally
+        $file = '/home/vetlogic/includes/vhosts.conf'; // Use this if running on live server
+        //$file = '/Applications/conf/vhosts.conf'; // Use this if running on Mac
+        $url = $domain;
 
-    if (isset($_REQUEST['feature']))
-    {
-        $feature = $_REQUEST['feature'];
-        if ($feature == 1) echo $domains->find($file, $url);
-        if ($feature == 2) echo $domains->update($url, $file);
-        if ($feature == 3) $domains->delete($url, $file);
-    }
-    else
-    {
-        echo '<h1>You need to define a feature</h1>';
+        if (isset($_REQUEST['feature']))
+        {
+            $feature = $_REQUEST['feature'];
+            //if ($feature == 1) echo $dom->find($file, $url);
+            if ($feature == 2) echo $dom->update($url, $file);
+            //if ($feature == 3) $domains->delete($url, $file);
+        }
+        else
+        {
+            echo '<h1>You need to define a feature</h1>';
+        }
     }
     ?>
     <meta http-equiv="refresh" content="4; url=start">
@@ -34,4 +38,5 @@ if (isset($_REQUEST['domain']))
     <script src="js/bootstrap.min.js"></script>
     </body>
     </html><?
+
 }
