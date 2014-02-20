@@ -20,7 +20,7 @@ include './include/header.inc';
                 <form role="form" action="post" method="post">
                     <div class="form-group">
                         <label>Domain:</label><p>Enter only one domain per line</p>
-                        <textarea type="text" class="form-control" id="domain" name="domain"></textarea>
+                        <textarea type="text" class="form-control" id="domain" name="domain" rows="10"></textarea>
                     </div>
                     <div class="form-group">
                         <label>Feature: </label>
