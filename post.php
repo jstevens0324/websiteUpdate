@@ -11,7 +11,7 @@ if (isset($_REQUEST['domain']))
     $domains = explode(PHP_EOL, $_REQUEST['domain']);
     foreach ($domains as $domain)
     {
-        $dom = new Domains($domain, new Db());
+        $dom = new Domains($domain);
         //$file = './../includes/vhosts.conf';  //Use this if running locally
         $file = '/home/vetlogic/includes/vhosts.conf'; // Use this if running on live server
         //$file = '/Applications/conf/vhosts.conf'; // Use this if running on Mac
@@ -30,7 +30,7 @@ if (isset($_REQUEST['domain']))
         }
     }
     ?>
-    <meta http-equiv="refresh" content="4; url=start">
+    <meta http-equiv="refresh" content="5; url=start">
 
     </div>
     </div>

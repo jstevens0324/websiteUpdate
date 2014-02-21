@@ -8,10 +8,6 @@
  */
 class Domains
 {
-    /**
-     * @var PDO
-     */
-    private $conn;
 
     /**
      * @var
@@ -20,12 +16,10 @@ class Domains
 
     /**
      * @param $domain
-     * @param PDO $conn
      */
-    function __construct($domain, PDO $conn)
+    function __construct($domain)
     {
-        $this->_domain = $domain;
-        $this->conn = $conn;
+        $this->_domain = strtolower($domain);
     }
 
     /**
@@ -111,24 +105,24 @@ class Domains
      */
     function update($url, $file)
     {
-        if ($this->isValidURL($url))
+        if ($this->isValidURL())
         {
             if (!$this->search($file, $url))
             {
                 $text = "\n\n#" . strtoupper($url) . "\n" .
                     "<VirtualHost *:80>\n" .
-                    "\tServerName " . $url . " \n" .
-                    "\tServerAlias www." . $url . " \n" .
+                    "\tServerName " . strtolower($url) . " \n" .
+                    "\tServerAlias www." . strtolower($url) . " \n" .
                     "\tDocumentRoot /home/vetlogic/www/petwise/public\n" .
-                    "\tServerAdmin webmaster@petwisewebsites.com\n\n" .
+                    "\tServerAdmin webmaster@petwisewebsites.com\n" .
                     "\tSetEnv APPLICATION_ENV production\n" .
-                    "\tSetEnv VETLOGIC_LIBRARY_PATH /home/vetlogic/lib/vetlogic\n\n" .
+                    "\tSetEnv VETLOGIC_LIBRARY_PATH /home/vetlogic/lib/vetlogic\n" .
                     "\t<IfModule mod_suphp.c>\n" .
                     "\t\tsuPHP_UserGroup vetlogic vetlogic\n" .
-                    "\t</IfModule>\n\n" .
+                    "\t</IfModule>\n" .
                     "\t<IfModule !mod_disable_suexec.c>\n" .
                     "\t\tSuexecUserGroup vetlogic vetlogic\n" .
-                    "\t</IfModule>\n\n" .
+                    "\t</IfModule>\n" .
                     "\t<Directory \"/home/vetlogic/www/petwise/public\">\n" .
                     "\t\tOptions FollowSymLinks\n" .
                     "\t\tAllowOverride All\n" .
@@ -140,12 +134,12 @@ class Domains
                 $fh = fopen($file, 'a+') or die("Can't open file for writing.");
                 fwrite($fh, $text);
                 fclose($fh);
-                return "Content Saved<br>";
+                return $url . " Saved<br>";
             }
-            else return "This domain already exists";
+            else return $url . " This domain already exists<br>";
 
         }
-        else return "Not a valid Url";
+        else return $url . " Not a valid Url<br>";
     }
 
     /**
