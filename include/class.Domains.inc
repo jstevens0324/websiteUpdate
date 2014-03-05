@@ -113,7 +113,7 @@ class Domains
                     "<VirtualHost *:80>\n" .
                     "\tServerName " . strtolower($url) . " \n" .
                     "\tServerAlias www." . strtolower($url) . " \n" .
-                    "\tDocumentRoot /home/vetlogic/www/petwise/public\n" .
+                   /* "\tDocumentRoot /home/vetlogic/www/petwise/public\n" .
                     "\tServerAdmin webmaster@petwisewebsites.com\n" .
                     "\tSetEnv APPLICATION_ENV production\n" .
                     "\tSetEnv VETLOGIC_LIBRARY_PATH /home/vetlogic/lib/vetlogic\n" .
@@ -128,7 +128,7 @@ class Domains
                     "\t\tAllowOverride All\n" .
                     "\t\tOrder allow,deny\n" .
                     "\t\tAllow from all\n" .
-                    "\t</Directory>\n" .
+                    "\t</Directory>\n" .*/
                     "</VirtualHost>";
 
                 $fh = fopen($file, 'a+') or die("Can't open file for writing.");

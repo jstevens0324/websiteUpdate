@@ -13,7 +13,7 @@ if (isset($_REQUEST['domain']))
     {
         $dom = new Domains($domain);
         //$file = './../includes/vhosts.conf';  //Use this if running locally
-        $file = '/home/vetlogic/includes/vhosts.conf'; // Use this if running on live server
+        $file = 'e://wamp/www/home/vetlogic/includes/vhosts.conf'; // Use this if running on live server
         //$file = '/Applications/conf/vhosts.conf'; // Use this if running on Mac
         $url = $domain;
 
