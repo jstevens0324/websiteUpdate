@@ -33,6 +33,92 @@ if (isset($_REQUEST['domain']))
             {
                 $nms = "<p>NS.RACKSPACE.COM<br>";
                 $nms .= "NS2.RACKSPACE.COM<br></p>";
+                ?>
+                <h2>Name Servers</h2>
+                <?= $nms ?>
+                <br><br>
+                <h2>DNS</h2>
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>Host</th>
+                        <th>TTL</th>
+                        <th>Type</th>
+                        <th>Target</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><?= $url ?></td>
+                        <td>300</td>
+                        <td>IN A</td>
+                        <td>173.203.172.76</td>
+                    </tr>
+                    <tr>
+                        <td><?= "www." . $url ?></td>
+                        <td>300</td>
+                        <td>IN CNAME</td>
+                        <td><?= $url ?></td>
+                    </tr>
+                    <tr>
+                        <td><?= "mail." . $url ?></td>
+                        <td>300</td>
+                        <td>IN CNAME</td>
+                        <td><?= $url ?></td>
+                    </tr>
+                    <tr>
+                        <td><?= "webmail." . $url ?></td>
+                        <td>300</td>
+                        <td>IN CNAME</td>
+                        <td><?= $webmail ?></td>
+                    </tr>
+                    </tbody>
+                </table><br><br>
+                <h2>MX</h2>
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>Host</th>
+                        <th>TTL</th>
+                        <th>Type</th>
+                        <th>Target</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><?= $url ?></td>
+                        <td>300</td>
+                        <td>IN MX</td>
+                        <td><?= $target ?></td>
+                    </tr>
+                    </tbody>
+                </table><br><br>
+                <h2>TXT</h2>
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>Host</th>
+                        <th>TTL</th>
+                        <th>Type</th>
+                        <th>Text</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><?= $url ?></td>
+                        <td>300</td>
+                        <td>IN MX</td>
+                        <td><?= $txt1 ?></td>
+                    </tr>
+                    <tr>
+                        <td><?= "api._domainkey." . $url ?></td>
+                        <td>300</td>
+                        <td>IN MX</td>
+                        <td><?= $txt2 ?></td>
+                    </tr>
+                    </tbody>
+                </table>
+            <?
             }
             if ($hosted == 1 && $dns == 0)
             {
